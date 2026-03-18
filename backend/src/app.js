@@ -11,6 +11,7 @@ app.use(express.json());
 // routes
 app.use("/api/auth", authRoutes);
 app.use(errorMiddleware);
+app.use("/api/jobs", require("./routes/job.routes"));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.get("/", (req, res) => {
   res.send("API is running...");
