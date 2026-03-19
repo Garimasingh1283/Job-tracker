@@ -1,20 +1,26 @@
 const nodemailer = require("nodemailer");
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+const sendTestEmail = async (email, token) => {
+  // create test account
+  const testAccount = await nodemailer.createTestAccount();
 
-const sendEmail = async (to, subject, text) => {
-  await transporter.sendMail({
-    from: process.env.EMAIL_USER,
-    to,
-    subject,
-    text,
+  const transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    auth: {
+      user: testAccount.user,
+      pass: testAccount.pass,
+    },
   });
-};
 
-module.exports = sendEmail;
+  const resetLink = `http://localhost:3000/reset/${token}`;
+
+  const info = await transporter.sendMail({
+    from: '"Job Tracker" <no-reply@jobtracker.com>',
+    to: email,
+    subject: "Password Reset",
+    html: `<a href="${resetLink}">Reset Password</a>`,
+  });
+
+  console.log("Preview URL: ", nodemailer.getTestMessageUrl(info));
+};
