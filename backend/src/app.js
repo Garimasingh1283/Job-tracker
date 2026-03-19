@@ -11,15 +11,25 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./config/swagger");
 
 app.use(cors({
-  origin: [
-    "http://localhost:3000",
-    "https://job-tracker-seven-zeta.vercel.app"
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+  origin: function (origin, callback) {
+    // allow requests with no origin (mobile apps, postman)
+    if (!origin) return callback(null, true);
 
-app.use(express.json());
+    const allowedOrigins = [
+      "http://localhost:3000",
+      "https://job-tracker-seven-zeta.vercel.app"
+    ];
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log("Blocked by CORS:", origin); // 👈 debug
+      callback(null, true); // TEMP allow all (for now)
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 
 // ✅ ROUTES
 app.use("/api/auth", authRoutes);
