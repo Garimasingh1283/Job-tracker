@@ -18,47 +18,65 @@ export default function Register() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="flex justify-center items-center h-screen bg-gray-100 dark:bg-gray-900 transition-colors">
+      
       <form
         onSubmit={handleSubmit}
-        className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg w-96"
+        className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl w-96 transition-colors"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">
           Create Account
         </h2>
 
+        {/* NAME */}
         <input
           placeholder="Name"
-          className="w-full mb-3 p-3 border rounded-lg"
+          className="w-full mb-3 p-3 border rounded-lg 
+                     bg-white dark:bg-gray-700 
+                     text-gray-900 dark:text-white 
+                     placeholder-gray-500 dark:placeholder-gray-400
+                     focus:outline-none focus:ring-2 focus:ring-blue-500"
           onChange={(e) =>
             setForm({ ...form, name: e.target.value })
           }
         />
 
+        {/* EMAIL */}
         <input
+          type="email"
           placeholder="Email"
-          className="w-full mb-3 p-3 border rounded-lg"
+          className="w-full mb-3 p-3 border rounded-lg 
+                     bg-white dark:bg-gray-700 
+                     text-gray-900 dark:text-white 
+                     placeholder-gray-500 dark:placeholder-gray-400
+                     focus:outline-none focus:ring-2 focus:ring-blue-500"
           onChange={(e) =>
             setForm({ ...form, email: e.target.value })
           }
         />
 
+        {/* PASSWORD */}
         <input
           type="password"
           placeholder="Password"
-          className="w-full mb-4 p-3 border rounded-lg"
+          className="w-full mb-4 p-3 border rounded-lg 
+                     bg-white dark:bg-gray-700 
+                     text-gray-900 dark:text-white 
+                     placeholder-gray-500 dark:placeholder-gray-400
+                     focus:outline-none focus:ring-2 focus:ring-blue-500"
           onChange={(e) =>
             setForm({ ...form, password: e.target.value })
           }
         />
 
-        <button className="w-full bg-black text-white p-3 rounded-lg">
+        {/* BUTTON */}
+        <button className="w-full bg-black dark:bg-blue-600 text-white p-3 rounded-lg hover:opacity-90 transition">
           Sign Up
         </button>
 
-        <p className="text-sm mt-4 text-center">
+        <p className="text-sm mt-4 text-center text-gray-600 dark:text-gray-300">
           Already have an account?{" "}
-          <Link to="/login" className="font-bold">
+          <Link to="/login" className="font-bold hover:underline">
             Login
           </Link>
         </p>
